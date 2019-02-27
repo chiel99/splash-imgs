@@ -65,7 +65,8 @@
 from __future__ import print_function
 import sys,os
 import struct
-import StringIO
+from io import StringIO
+from io import BytesIO
 from PIL import Image
 
 SUPPORT_RLE24_COMPRESSIONT = 0
@@ -76,7 +77,7 @@ def GetImgHeader(size, compressed=0, real_bytes=0):
     header = [0 for i in range(SECTOR_SIZE_IN_BYTES)]
 
     width, height = size
-    real_size = (real_bytes  + 511) / 512
+    real_size = (real_bytes  + 511) // 512
 
     # magic
     header[:8] = [ord('S'),ord('P'), ord('L'), ord('A'),
@@ -106,7 +107,7 @@ def GetImgHeader(size, compressed=0, real_bytes=0):
     header[22] = ((real_size >> 16) & 0xFF)
     header[23] = ((real_size >> 24) & 0xFF)
 
-    output = StringIO.StringIO()
+    output = BytesIO()
     for i in header:
         output.write(struct.pack("B", i))
     content = output.getvalue()

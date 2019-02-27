@@ -1,7 +1,7 @@
 #!/bin/bash
 [[ -z "$1" ]] && echo "No image file supplied as argument. Exiting." && exit 1
 
-RESOLUTION="1080x1920"
+RESOLUTION="1920x1080"
 SPLASH_IMG_PATH="$1"
 SPLASH_IMG_FILENAME=${SPLASH_IMG_PATH##*/}
 SPLASH_OUT=${2:-${SPLASH_IMG_FILENAME%.*}.png}
